@@ -31,6 +31,17 @@ function Clip() {
       }
     }, [])
 
+    const getTTL = (seconds) => {
+      if(seconds == 1) return '1 second';
+      if(seconds == 60) return '1 minute';
+      if(seconds == 600) return '10 minutes';
+      if(seconds == 3600) return '1 hour';
+      if(seconds == 86400) return '1 day';
+      if(seconds == 604800) return '1 week';
+      if(seconds == 2592000) return '30 days';
+      return `${seconds} seconds`;
+    }
+
     const handleCreateClip = async () => {
         const id = window.location.pathname.split('/')[1];
       const response = await fetch(`http://localhost:3000/api/${id}`, {
@@ -95,6 +106,9 @@ function Clip() {
             >
               Copy
             </button>
+             <div className="flex items-center gap-4 w-full justify-between">
+              <span className="text-gray-500 text-sm ml-4">Time to live: {getTTL(lifetime)}</span>
+            </div>
           </div>
         )}
           {/* <div className="flex items-center gap-4 w-full justify-between mt-2">
@@ -109,9 +123,7 @@ function Clip() {
           className="w-full h-[400px] md:h-[600px] p-4 border-2 border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-lg resize-none bg-gray-50 shadow-inner"
           placeholder="Paste or type your text here..."
         ></textarea>
-        {/* <div className="flex items-center gap-4 w-full justify-between mt-2">
-          <span className="text-gray-500 text-sm">Lifetime: {lifetime} second{lifetime !== 1 ? 's' : ''}</span>
-        </div> */}
+       
       </div>
     </div>
   )

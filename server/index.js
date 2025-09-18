@@ -1,7 +1,6 @@
 import express from "express"
 import cors from "cors"
 
-console.log("Read befor");
 import mongoose from "mongoose";
 import { Clip } from "./clip.js";
 import dotenv from "dotenv";
@@ -18,7 +17,7 @@ app.use(express.json());
 
 app.get('/api/:id', async (req,res)=>{
     const id = req.params.id;
-    console.log("req coming for ", id);
+    
     
 
     const clip = await Clip.findOne({ id : id });
@@ -32,11 +31,11 @@ app.get('/api/:id', async (req,res)=>{
 })
 
 app.post('/api/:id', async (req,res)=>{
-    console.log("Req coming");
+
     
     const id = req.params.id;
     const content = req.body.content;
-    const lifetime = req.body.lifetime | 1;
+    const lifetime = req.body.lifetime;
 
     await Clip.create({
         id,

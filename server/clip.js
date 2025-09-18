@@ -21,7 +21,7 @@ clipSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 // Pre-save hook to set expireAt automatically
 clipSchema.pre("save", function (next) {
-  console.log('pre run ', typeof this.lifetime);
+  
   if (this.isNew && this.lifetime) {
     this.expireAt = new Date(this.createdAt.getTime() + this.lifetime * 1000);
   }
